@@ -1,6 +1,6 @@
 using NumericalAnalysis
 using Test
-
+import NumericalAnalysis.my_f
 
 @testset "NumericalAnalysis.jl" begin
     #2x + 4y
