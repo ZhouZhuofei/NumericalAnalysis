@@ -17,7 +17,7 @@ cache:
     - ~/.julia/artifacts
 jobs:
   fast_finish: true
-  allow_failures: 
+  allow_failures:
     - julia: nightly
 after_success:
   - |
@@ -32,3 +32,10 @@ after_success:
       Pkg.add("Coverage")
       using Coverage
       Coveralls.submit(process_folder())'
+  - |
+    julia -e '
+      using Pkg
+      cd(Pkg.dir("MyPkg"))
+      Pkg.add("Coverage")
+      using Coverage
+      Codecov.submit(Codecov.process_folder())'
