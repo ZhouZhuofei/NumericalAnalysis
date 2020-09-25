@@ -2,6 +2,8 @@
 language: julia
 notifications:
   email: false
+
+
 julia:
   - 1.5
   - 1.4
@@ -19,7 +21,12 @@ jobs:
   fast_finish: true
   allow_failures:
     - julia: nightly
+
+script:
+  - julia --project --check-bounds=yes -e 'import Pkg; Pkg.build(); Pkg.test("NumericalAnalysis"; coverage=true)'
 after_success:
+  codecov: true
+  coveralls: true
   - |
     julia -e '
       using Pkg
