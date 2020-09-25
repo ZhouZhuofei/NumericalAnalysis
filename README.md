@@ -4,3 +4,42 @@
 [![Build Status](https://ci.appveyor.com/api/projects/status/github/ZhouZhuofei/NumericalAnalysis.jl?svg=true)](https://ci.appveyor.com/project/ZhouZhuofei/NumericalAnalysis-jl)
 [![Coverage](https://codecov.io/gh/ZhouZhuofei/NumericalAnalysis.jl/branch/master/graph/badge.svg)](https://codecov.io/gh/ZhouZhuofei/NumericalAnalysis.jl)
 [![Coverage](https://coveralls.io/repos/github/ZhouZhuofei/NumericalAnalysis.jl/badge.svg?branch=master)](https://coveralls.io/github/ZhouZhuofei/NumericalAnalysis.jl?branch=master)
+
+****
+
+I am a beginner of Julia and numerical analysis, there may be many problems, welcome to discuss with me.👏🤣
+
+***
+
+## Basic
+
+here are some function:
+
+```julia
+julia> using NumericalAnalysis
+
+```
+
+Now, i just write two function:
+
+- N the derivative, use ForwardDiff packageto calculate $\frac{dy}{dx}$, then recursive to get Nth derivative.(emmm, I feel a bit slow)
+- Taylor Polynomial, get the value nth Taylor Ploynomial.
+
+
+
+`NthDerivative(f, x, n)`
+
+```julia
+NthDerivative(x->x^3, 4, 4) # 0
+NthDerivative(x->x^3, 4, 2) # 24
+NthDerivative(cos, 1, 5) # NthDerivative(cos, 1, 5)
+```
+
+`TaylorPolynomials(f, x, x₀, n)`
+
+```julia
+TaylorPolynomials(cos, 0.1, 0, 6) # TaylorPolynomials(cos, 0.1, 0, 6)
+TaylorPolynomials(x->x^3, 1.1, 1, 6) #1.331000..
+```
+
+...
