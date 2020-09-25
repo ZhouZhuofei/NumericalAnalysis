@@ -1,13 +1,9 @@
 module NumericalAnalysis
-
+using Documenter
 using ForwardDiff
 include("basic.jl")
 
-export my_f,derivative_my_f
-export ξ
-export absolute_error, relative_error
-export NthDerivative
-export TaylorPolynomials
+export my_f, derivative_my_f, ξ, absolute_error, relative_error, NthDerivative, TaylorPolynomials
 
 # Write your package code here.
 

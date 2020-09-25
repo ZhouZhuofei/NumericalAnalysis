@@ -1,6 +1,4 @@
-#just use for test
-my_f(x, y) = 2x + 4y
-derivative_my_f(x, y) = ForwardDiff.derivative(x -> my_f(x, y), x)
+#Basic function to use
 
 """
     absolute_error(x, x̂)
@@ -15,7 +13,6 @@ absolute_error(x, x̂) = abs(x .- x̂)
 """
     relative_error(x, x̂)
 
-
 The relative error between X1 and X2
 """
 relative_error(x, x̂) = abs((x .- x̂) ./ x)
@@ -26,17 +23,15 @@ relative_error(x, x̂) = abs((x .- x̂) ./ x)
 
 return the number ξ(x) bwteen x₀ and x.
 """
-
-ξ(x₀, x) = rand(1)[1] * (x - x₀)/x + x₀
+@inline ξ(x₀, x) = rand(1)[1] * (x - x₀)/x + x₀
 
 
 """
-    NthDrivative(f, x, n)
+    NthDrivative(f::Function, x::Real, n::Int)
 
 return the nth derivative value at x
 """
-
-function NthDerivative(f, x, n)
+@inline function NthDerivative(f::Function, x::Real, n::Int)
     if n == 0
         return f(x)
     else
@@ -48,13 +43,11 @@ end
 
 
 """
-    TaylorPolynomials(f, x, n)
+    TaylorPolynomials(f::Function, x::Real, x₀::Real, n::Int)
 
-return the value of nth Taylor Ploynomial and the result.
+return the value of nth Taylor Ploynomial at x.
 """
-
-
-function TaylorPolynomials(f, x, x₀, n)
+@inline function TaylorPolynomials(f::Function, x::Real, x₀::Real, n::Int)
     result = []
     for i in 0:n
         push!(result, NthDerivative(f, x₀, i)*(x - x₀)^i/factorial(i))
