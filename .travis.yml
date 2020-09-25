@@ -23,10 +23,10 @@ jobs:
     - julia: nightly
 
 script:
-  - julia --project --check-bounds=yes -e 'import Pkg; Pkg.build(); Pkg.test("NumericalAnalysis"; coverage=true)'
+  - julia -e 'using Pkg; Pkg.add(PackageSpec(url="https://github.com/ZhouZhuofei/NumericalAnalysis.jl"))'
+  - julia -e 'using Pkg; Pkg.build(); Pkg.test(coverage = true)'
 after_success:
-  codecov: true
-  coveralls: true
+
   - |
     julia -e '
       using Pkg
@@ -39,10 +39,3 @@ after_success:
       Pkg.add("Coverage")
       using Coverage
       Coveralls.submit(process_folder())'
-  - |
-    julia -e '
-      using Pkg
-      cd(Pkg.dir("NumericalAnalysis"))
-      Pkg.add("Coverage")
-      using Coverage
-      Codecov.submit(Codecov.process_folder())'
