@@ -11,7 +11,7 @@ ForwardDiff = "f6369f11-7733-5829-9624-2563aa707210"
 Documenter = "0.25"
 ForwardDiff = "0.10"
 julia = "1.5"
-Documenter = "0.25"
+
 
 [extras]
 SafeTestsets = "1bc83da4-3b8d-516f-aca4-4fe02f6d838f"
