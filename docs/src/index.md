@@ -21,10 +21,15 @@ here are some function:
 
 
 Now, i just write some functions:
+- Basic
+  - N the derivative, use ForwardDiff packageto calculate $\frac{dy}{dx}$, then recursive to get Nth derivative.(emmm, I feel a bit slow)
+  - Taylor Polynomial, get the value nth Taylor Ploynomial.
+- Solutions for equation in one Variable
+  - Bisection function, find root
+  - fixed_point function.
+  - Newton Method
+  - The Secant Method
 
-- N the derivative, use ForwardDiff packageto calculate $\frac{dy}{dx}$, then recursive to get Nth derivative.(emmm, I feel a bit slow)
-- Taylor Polynomial, get the value nth Taylor Ploynomial.
-- Bisection function, find root
 ***
 ***
 

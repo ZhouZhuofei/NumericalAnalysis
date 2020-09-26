@@ -9,6 +9,6 @@ export my_f, derivative_my_f, ξ, absolute_error, relative_error, NthDerivative,
 
 include("SEq1.jl")
 
-export Bisection
+export Bisection, fixed_point, Newton, Secant
 
 end
