@@ -4,6 +4,7 @@
 [![Build Status](https://ci.appveyor.com/api/projects/status/github/ZhouZhuofei/NumericalAnalysis.jl?svg=true)](https://ci.appveyor.com/project/ZhouZhuofei/NumericalAnalysis-jl)
 [![Coverage](https://coveralls.io/repos/github/ZhouZhuofei/NumericalAnalysis.jl/badge.svg?branch=master)](https://coveralls.io/github/ZhouZhuofei/NumericalAnalysis.jl?branch=master)
 [![](https://img.shields.io/badge/docs-stable-blue.svg)](https://zhouzhuofei.github.io/NumericalAnalysis.jl/docs/build/index.html)
+[![License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat)](https://github.com/ZhouZhuofei/NumericalAnalysis.jl/blob/master/LICENSE)
 
 
 ****
