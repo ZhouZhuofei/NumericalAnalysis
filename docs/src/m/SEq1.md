@@ -28,13 +28,18 @@ To begin:
   - If $f(p_1)$ and $f(a)$ have the same sign, root in $(p_1, b_1)$, change: $a_2 = p_1$ and $b_2 = b_1$.
   - if $f(p_1)$ and $f(b)$ have the same sign, root in $(a_1, p_1)$, change: $a_2 = a_1$  and $b_2=p_1$.
 
-```@example
-  using NumericalAnalysis: SEq1
-  SEq1.Bisection(sin, π/2, 3π/2)
+```@example 2
+using NumericalAnalysis: SEq1
+SEq1.Bisection(sin, π/2, 3π/2)
 ```
 and the real answers
 ```@example
 π
+```
+you can see steps output:
+
+```@exampel 2
+SEq1.Bisection(x->x-1, 0, 3π/2, output_seq=true)
 ```
 
 ## Method

@@ -3,7 +3,7 @@
 [![Build Status](https://travis-ci.com/ZhouZhuofei/NumericalAnalysis.jl.svg?branch=master)](https://travis-ci.com/ZhouZhuofei/NumericalAnalysis.jl)
 [![Build Status](https://ci.appveyor.com/api/projects/status/github/ZhouZhuofei/NumericalAnalysis.jl?svg=true)](https://ci.appveyor.com/project/ZhouZhuofei/NumericalAnalysis-jl)
 [![Coverage](https://coveralls.io/repos/github/ZhouZhuofei/NumericalAnalysis.jl/badge.svg?branch=master)](https://coveralls.io/github/ZhouZhuofei/NumericalAnalysis.jl?branch=master)
-[![Stable](https://img.shields.io/badge/docs-stable-blue.svg)](https://ZhouZhuofei.github.io/NumericalAnalysis.jl/stabel)
+[![codecov](https://codecov.io/gh/ZhouZhuofei/NumericalAnalysis.jl/branch/master/graph/badge.svg)](https://codecov.io/gh/ZhouZhuofei/NumericalAnalysis.jl)
 [![License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat)](https://github.com/ZhouZhuofei/NumericalAnalysis.jl/blob/master/LICENSE)
 
 ****
@@ -59,4 +59,7 @@ TaylorPolynomials(x->x^3, 1.1, 1, 6) #1.331000..
 ```@example 1
 using NumericalAnalysis: SEq1
 SEq1.Bisection(sin, π/2, 3π/2)
+```
+```@example 1
+SEq1.Bisection(x->x-1, 0, 3π/2, output_seq=true)
 ```
