@@ -8,6 +8,7 @@ Documenter = "e30172f5-a6a5-5a46-863b-614d45cd2de4"
 ForwardDiff = "f6369f11-7733-5829-9624-2563aa707210"
 
 [compat]
+Documenter = "0.25"
 ForwardDiff = "0.10"
 julia = "1.5"
 
