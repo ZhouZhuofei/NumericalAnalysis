@@ -23,26 +23,20 @@ julia> using NumericalAnalysis
 
 ```
 
-Now, i just write two function:
+Now,just have some Methods here
 
-- N the derivative, use ForwardDiff packageto calculate $\frac{dy}{dx}$, then recursive to get Nth derivative.(emmm, I feel a bit slow)
-- Taylor Polynomial, get the value nth Taylor Ploynomial.
+- Basic
+  - N the derivative, use ForwardDiff packageto calculate $\frac{dy}{dx}$, then recursive to get Nth derivative.(emmm, I feel a bit slow)
+  - Taylor Polynomial, get the value nth Taylor Ploynomial.
+- Solutions for equation in one Variable(in `NumericalAnalysis.SEq1`)
+  - Bisection function, find root
+  - fixed_point function.
+  - Newton's Method
+  - The Secant Method
+  - The False Position Method
+  - Modified Newton's Method
+  -  Müller’s Method
 
-
-
-`NthDerivative(f, x, n)`
-
-```julia
-NthDerivative(x->x^3, 4, 4) # 0
-NthDerivative(x->x^3, 4, 2) # 24
-NthDerivative(cos, 1, 5) # NthDerivative(cos, 1, 5)
-```
-
-`TaylorPolynomials(f, x, x₀, n)`
-
-```julia
-TaylorPolynomials(cos, 0.1, 0, 6) # TaylorPolynomials(cos, 0.1, 0, 6)
-TaylorPolynomials(x->x^3, 1.1, 1, 6) #1.331000..
-```
+more information in Docs.
 
 .....
