@@ -8,6 +8,7 @@ here are functions to find root:
 3. Newton Method
 4. The Secant Method
 5. The False Position Method
+6.  Müller’s Method
 """
 module SEq1
 using ForwardDiff
@@ -184,8 +185,76 @@ a function and interval ``[a, b]``, then you can set Args or use default.
     return -1
 end
 
+"""
+    ModifiedNewton(f::Function, p₀::Real; TOL::Float64=0.00000001, N::Int=20, output_seq::Bool=false)
+
+Newton and ModifiedNewton, Both methods are rapidly convergent to the actual zero.
+"""
+@inline function ModifiedNewton(f::Function, p₀::Real; TOL::Float64=0.00000001, N::Int=20, output_seq::Bool=false)
+    i = 1
+    seq = []
+    push!(seq, p₀)
+    f1(x) = ForwardDiff.derivative(x -> f(x), x)
+    f11(x) = ForwardDiff.derivative(x -> f1(x), x)
+    while i <= N
+        p = p₀ - f(p₀)*f1(p₀)/((f1(p₀))^2 - f(p₀)*f11(p₀))
+        push!(seq, p)
+        if abs(p - p₀) < TOL
+            if output_seq
+                return seq
+            else
+                return p
+            end
+            break
+        end
+        i += 1
+        p₀ = p
+    end
+    return -1
+end
 
 
-
+"""
+    Muller(f::Function, p₀::Real, p₁::Real, p₂::Real; TOL::Float64=0.00000001, N::Int=20, output_seq::Bool=false)
+"""
+@inline function Muller(f::Function, p₀::Real, p₁::Real, p₂::Real; TOL::Float64=0.00000001, N::Int=20, output_seq::Bool=false)
+    h₁ = p₁ - p₀
+    h₂ = p₂ - p₁
+    δ₁ = (f(p₁) - f(p₀))/h₁
+    δ₂ = (f(p₂) - f(p₁))/h₂
+    d = (δ₂ - δ₁)/(h₁ + h₂)
+    i = 3
+    seq = []
+    while i <= N
+        b = δ₂ + h₂*d
+        D = sqrt(complex(b^2 - 4*f(p₂)*d))
+        if abs(b - D) < abs(b + D)
+            E = b + D
+        else
+            E = b - D
+        end
+        h = -2 * f(p₂)/E
+        p = p₂ + h
+        push!(seq, p)
+        if abs(h) < TOL
+            if output_seq
+                return seq
+            else
+                return p
+            end
+            break
+        end
+        p₀ = p₁
+        p₁ = p₂
+        p₂ = p
+        h₁ = p₁ - p₀
+        h₂ = p₂ - p₁
+        δ₁ = (f(p₁) - f(p₀))/h₁
+        δ₂ = (f(p₂) - f(p₁))/h₂
+        d = (δ₂ - δ₁)/(h₁ + h₂)
+        i += 1
+    end
+    return -1
+end
 
 end

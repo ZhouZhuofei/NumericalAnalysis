@@ -130,6 +130,35 @@ SEq1.FalsePos(x->cos(x)-x, 0.5, π/4, output_seq=true)
 ***
 ***
 
+## Modified Newton's Way
+Newton and ModifiedNewton, Both methods are rapidly convergent to the actual zero.
+
+$p_n = p_{n-1} - \frac{f(p_{n-1})f'(p_{n-1})}{f'(p_{n-1})^2 - f(p_{n-1})f''(p_{n-1})}$
+
+```@example 1
+SEq1.ModifiedNewton(x -> cos(x) - x, 0.5)
+```
+
+```@example 1
+SEq1.ModifiedNewton(x -> cos(x) - x, 0.5, output_seq=true)
+```
+***
+***
+
+## Muller method
+find complex Zeros.
+
+search in Google for more about Müller’s Method
+
+```@example 1
+SEq1.Muller(x->x^4-3x^3+x^2+x+1, 0.5, -0.5, 0.0)
+```
+```@example 1
+SEq1.Muller(x->x^4-3x^3+x^2+x+1, 0.5, -0.5, 0.0, output_seq=true)
+```
+
+
+
 
 
 
