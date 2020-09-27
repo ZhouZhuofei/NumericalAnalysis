@@ -152,7 +152,7 @@ end
     FalsePos(f::Function, p₀::Real, p₁::Real; TOL::Float64=0.00000001, N::Int=40, output_seq::Bool=false)
 
 Use the false position method to find root.
-a function and interval $[a, b]$, then you can set Args or use default.
+a function and interval ``[a, b]``, then you can set Args or use default.
 """
 @inline function FalsePos(f::Function, p₀::Real, p₁::Real; TOL::Float64=0.00000001, N::Int=40, output_seq::Bool=false)
     i = 2

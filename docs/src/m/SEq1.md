@@ -89,7 +89,7 @@ SEq1.Newton(x->cos(x) - x, 0.74, output_seq=true)
 ***
 
 ## The Secant Method
-To circumvent the problem of the derivative evaluation in Newton’s method, we intro- duce a slight variation. By definition,
+To circumvent the problem of the derivative evaluation in Newton’s method, we introduce a slight variation. By definition,
 
 $f'(p_{n-1}) = \lim_{x \to p_{n-1}} \frac{f(x) - f(p_{n-1})}{x-p_{n-1}}$
 
