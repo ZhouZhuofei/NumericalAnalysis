@@ -29,6 +29,7 @@ Now, i just write some functions:
   - fixed_point function.
   - Newton Method
   - The Secant Method
+  - The False Position Method
 
 ***
 ***

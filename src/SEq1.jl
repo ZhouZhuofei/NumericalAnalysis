@@ -7,6 +7,7 @@ here are functions to find root:
 2. Fixed-Point Iteration
 3. Newton Method
 4. The Secant Method
+5. The False Position Method
 """
 module SEq1
 using ForwardDiff
@@ -126,6 +127,8 @@ A function and p₀, p₁(p₀<p₁), then you can set Args or use default.
     seq = []
     a₀ = f(p₀)
     a₁ = f(p₁)
+    push!(seq, p₀)
+    push!(seq, p₁)
     while i <= N
         p = p₁ - a₁*(p₁ - p₀)/(a₁ - a₀)
         push!(seq, p)
@@ -143,6 +146,42 @@ A function and p₀, p₁(p₀<p₁), then you can set Args or use default.
         p₁ = p
         a₁ = f(p)
     end
+end
+
+"""
+    FalsePos(f::Function, p₀::Real, p₁::Real; TOL::Float64=0.00000001, N::Int=40, output_seq::Bool=false)
+
+Use the false position method to find root.
+a function and interval $[a, b]$, then you can set Args or use default.
+"""
+@inline function FalsePos(f::Function, p₀::Real, p₁::Real; TOL::Float64=0.00000001, N::Int=40, output_seq::Bool=false)
+    i = 2
+    seq = []
+    q₀ = f(p₀)
+    q₁ = f(p₁)
+    push!(seq, p₀)
+    push!(seq, p₁)
+    while i <= N
+        p = p₁ - q₁*(p₁ - p₀)/(q₁ - q₀)
+        push!(seq, p)
+        if abs(p - p₁) < TOL
+            if output_seq
+                return seq
+            else
+                return p
+            end
+            break
+        end
+        i += 1
+        q = f(p)
+        if q*q₁ < 0
+            p₀ = p₁
+            q₀ = q₁
+        end
+        p₁ = p
+        q₁ = q
+    end
+    return -1
 end
 
 

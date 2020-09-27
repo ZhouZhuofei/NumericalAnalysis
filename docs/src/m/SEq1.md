@@ -26,15 +26,14 @@ To begin:
   - If $f(p_1)$ and $f(a)$ have the same sign, root in $(p_1, b_1)$, change: $a_2 = p_1$ and $b_2 = b_1$.
   - if $f(p_1)$ and $f(b)$ have the same sign, root in $(a_1, p_1)$, change: $a_2 = a_1$  and $b_2=p_1$.
 
-```@example 2
+```@example 1
 using NumericalAnalysis: SEq1
 SEq1.Bisection(x->cos(x)-x, 0.5, π/4)
 ```
 
 you can see steps output:
 
-```@exampel 3
-using NumericalAnalysis: SEq1
+```@example 1
 SEq1.Bisection(x->cos(x)-x, 0.5, π/4, output_seq=true)
 ```
 ****
@@ -52,11 +51,11 @@ $f(x) = x - g(x)$
 
 has a zero at $p$.
 
-```@example 2
+```@example 1
 SEq1.fixed_point(x -> cos(x), 0.74)
 ```
 
-```@example 2
+```@example 1
 SEq1.fixed_point(x -> cos(x), 0.74, output_seq=true)
 ```
 ***
@@ -79,11 +78,11 @@ This sets the stage for Newton’s method, which starts with an initial approxim
 
 $p_n = p_{n-1} - \frac{f(p_{n-1})}{f'(p_{n-1})}$
 
-```@example 2
+```@example 1
 SEq1.Newton(x->cos(x) - x, 0.74)
 ```
 
-```@example 2
+```@example 1
 SEq1.Newton(x->cos(x) - x, 0.74, output_seq=true)
 ```
 ***
@@ -102,12 +101,31 @@ So
 
 $p_{n} = p_{n-1} - \frac{f(p_{n-1})(p_{n-1} - p_{n-2})}{f(p_{n-1})- f(p_{n-2})}$
 
-```@example 2
+```@example 1
 SEq1.Secant(x -> cos(x) - x, 0.5, π/4)
 ```
 
-```@exampel 3
+```@example 1
 SEq1.Secant(x -> cos(x) - x, 0.5, π/4, output_seq=true)
+```
+***
+***
+
+## False position
+The method of False Position (also called Regula Falsi) generates approximations in the same manner as the Secant method, but it includes a test to ensure that the root is always bracketed between successive iterations
+
+First choose initial approximations $p₀$ and $p₁$ with $f(p₀)·f(p₁) < 0$. The approximation $p₂$ is chosen in the same manner as in the Secant method, as the x-intercept of the line joining $(p₀, f(p₀))$ and $(p₁, f(p₁))$. To decide which secant line to use to compute $p₃$, consider $f(p₂) · f(p₁)$, or $sgn[f(p₂)]·sgn[f(p₁)]$.
+
+- If $sgn[f(p₂)]·sgn[f(p₁)] < 0$, then $p₁$ and $p₂$ bracket a root. Choose $p₃$ as the x-intercept of the line joining $(p₁,f(p₁))$ and $(p₂,f(p₂))$.
+
+- If not, choose $p₃$ as the x-intercept of the line joining $(p₀, f(p₀))$ and $(p₂, f(p₂))$, and then interchange the indices on $p₀$ and $p₁$.
+
+```@example 1
+SEq1.FalsePos(x->cos(x)-x, 0.5, π/4)
+```
+
+```@example 1
+SEq1.FalsePos(x->cos(x)-x, 0.5, π/4, output_seq=true)
 ```
 ***
 ***
