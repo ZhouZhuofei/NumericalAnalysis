@@ -36,6 +36,8 @@ Now,just have some Methods here
   - The False Position Method
   - Modified Newton's Method
   -  Müller’s Method
+- Interpolation and the Lagrange Polynomial
+  - nth Larange interpolating polynomial  
 
 more information in Docs.
 

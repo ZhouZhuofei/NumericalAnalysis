@@ -9,6 +9,7 @@ makedocs(
         "Functions" => Any[
             "Basic function" => "m/basic.md",
             "SEq in one variable" => "m/SEq1.md",
+            "Interpolation and the Lagrange Polynomial" => "m/Polynomial.md",
         ],
     ],
 )
