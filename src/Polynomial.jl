@@ -41,4 +41,29 @@ output: function.
 end
 
 
+"""
+    Neville(x::Vector, y::Vector, x₀::Real; tab::Bool=false)
+
+input two vector, x and y. satisfy the function `y=f(x)`, then input x₀, which you want
+to  approximate f(x₀). The default tab setting is false, just output the estimate. you can set true
+to output a result table.
+"""
+@inline function Neville(x::Vector, y::Vector, x₀::Real; tab::Bool=false)
+    n, = size(x)
+    res = zeros(n, n)
+    for i in 1:n
+        res[i, 1] = y[i]
+    end
+    for i in 2:n
+        for j in 2:i
+            res[i,j] = ((x₀ - x[i-j+1])*res[i, j-1] - (x₀ - x[i])*res[i-1,j-1])/(x[i] - x[i-j+1])
+        end
+    end
+    if tab
+        return res
+    else
+        return res[n, n]
+    end
+end
+
 end
