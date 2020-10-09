@@ -32,6 +32,7 @@ Now, i just write some functions:
   -  Müller’s Method
 - Interpolation and the Lagrange Polynomial
   - nth Larange interpolating polynomial
+  - Neville’s Iterated Interpolation
 ***
 ***
 
