@@ -16,6 +16,6 @@ export Bisection, fixed_point, Newton, Secant, FalsePos, ModifiedNewton
 
 include("Polynomial.jl")
 
-export Lagrange
+export Lagrange, Neville, NDDF
 
 end

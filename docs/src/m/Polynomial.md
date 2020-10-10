@@ -35,6 +35,26 @@ y = [0.7651977, 0.6200860, 0.4554022, 0.2818186, 0.1103623]
 Polynomial.Neville(x, y, 1.5, tab=true)
 ```
 
+## Newton’s Divided-Difference Formula
+Suppose that $P_{n}(x)$ is the nth Lagrange polynomial that agrees with the function $f$ at the distinct numbers $x_0 , x_1 , . . . , x_n$ . Although this polynomial is unique, there are alternate algebraic representations that are useful in certain situations. The divided differences of f with respect to $x_0, x_1, . . . , x_n$ are used to express $P_n(x)$ in the form
+
+$P_{n}(x)=a_{0}+a_{1}(x-x_{0})+a_{2}(x-x_{0})(x-x_{1})+...+a_{n}(x-x_{0})...(x-x_{n-1}),$
+
+So
+
+$a_{0}=P_{n}(x_{0})=f(x_{0})$
+
+$P_{n}(x_{1})=a_{0}+a_{1}(x-x_{0})=f(x_{1})$
+
+$a_{1} = \frac{f(x_{1})-f(x_{0})}{x_{1}-x_{0}}.$
+
+```@example 3
+x = [1.0, 1.3, 1.6, 1.9, 2.2]
+y = [0.7651977, 0.6200860, 0.4554022, 0.2818186, 0.1103623]
+print(Polynomial.NDDF(x, y, backward=true))
+```
+
+
 ## Method
 ```@autodocs
 Modules = [NumericalAnalysis.Polynomial]

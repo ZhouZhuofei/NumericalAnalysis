@@ -66,4 +66,45 @@ to output a result table.
     end
 end
 
+"""
+    NDDF(x::Vector, y::Vector; a::String="x", simple::Bool=true, tab::Bool=false, backward::Bool=false)
+
+input ``x_1, x_2, x_3, ...x_n```,values ``f(x_1), f(x_2), ...,f(x_n)``, set Args `simpel = true`
+output simplify ans, set tab to output a table. set `backward=true` use the Newton Backward–Difference Formula.
+"""
+@inline function NDDF(x::Vector, y::Vector; a::String="x", simple::Bool=true, tab=false, backward::Bool=false)
+    a = symbols(a)
+    n, = size(x)
+    res = zeros(n, n)
+    for i in 1:n
+        res[i,1] = y[i]
+    end
+    for i in 2:n
+        for j in 2:i
+            res[i,j] = (res[i, j-1] - res[i-1, j-1])/(x[i] - x[i-j+1])
+        end
+    end
+    sum = res[1,1]
+    for i in 2:n
+        p = 1
+        for j in 1:i-1
+            p = p*(a - x[j])
+        end
+        if backward
+            sum = sum + res[n, i]*p
+        else
+            sum = sum + res[i, i]*p
+        end
+    end
+    if tab
+        return res
+    else
+        if simple
+            return simplify(sum)
+        else
+            return sum
+        end
+    end
+end
+
 end
