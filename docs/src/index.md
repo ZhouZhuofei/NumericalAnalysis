@@ -33,6 +33,7 @@ Now, i just write some functions:
 - Interpolation and the Lagrange Polynomial
   - nth Larange interpolating polynomial
   - Neville’s Iterated Interpolation
+  - Newton’s Divided-Difference Formula
 ***
 ***
 
