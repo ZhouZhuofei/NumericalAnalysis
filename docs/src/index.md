@@ -34,6 +34,7 @@ Now, i just write some functions:
   - nth Larange interpolating polynomial
   - Neville’s Iterated Interpolation
   - Newton’s Divided-Difference Formula
+  - Natural Cubic Spline
 ***
 ***
 
