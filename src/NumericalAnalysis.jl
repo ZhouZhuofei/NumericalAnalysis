@@ -5,6 +5,8 @@ using LinearAlgebra
 using PyCall
 using Conda
 using SymPy
+using Latexify
+
 include("basic.jl")
 export my_f, derivative_my_f, ξ, absolute_error, relative_error, NthDerivative, TaylorPolynomials
 
