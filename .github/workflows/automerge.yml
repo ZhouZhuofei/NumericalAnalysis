@@ -33,7 +33,7 @@ jobs:
             ${{ runner.os }}-test-
             ${{ runner.os }}-
       - name: Install dependencies by running Pkg.instantiate()
-        run: julia --project=.ci/ -e 'using Pkg; Pkg.instantiate()'
+        run: julia --project=.ci/ -e 'using Pkg; Pkg.instantiate();Pkg.add("RegistryCI")'
       - name: AutoMerge.run
         env:
           MERGE_NEW_PACKAGES: true
