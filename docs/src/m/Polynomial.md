@@ -54,6 +54,33 @@ y = [0.7651977, 0.6200860, 0.4554022, 0.2818186, 0.1103623]
 print(Polynomial.NDDF(x, y, backward=true))
 ```
 
+## Natural Cubic Spline
+note: $S(x) = S_j(x) = a_j + b_j(x-x_j)+c_j(x-x_j)^2+d_j(x-x_j)^3$ for $x_j \leq x \leq x_{j+1}$
+
+```@example 3
+x = [0,1,2,3]
+y = [1, exp(1), exp(2), exp(3)]
+st = Polynomial.NCSpline(x, y)
+x₁ = 0:0.1:3
+function plot_curve(x)
+    if 0 ≤ x < 1
+        return st[1](x)
+    end
+    if 1 ≤ x < 2
+        return st[2](x)
+    end
+    if 2 ≤ x ≤ 3
+        return st[3](x)
+    end
+end
+plot(x₁, [exp.(x₁) plot_curve.(x₁)], label=["real" "predict"], legend=:topleft)
+```
+```@example 3
+x = [0,1,2,3]
+y = [1, exp(1), exp(2), exp(3)]
+Polynomial.NCSpline(x, y, Latex=true)
+```
+
 
 ## Method
 ```@autodocs

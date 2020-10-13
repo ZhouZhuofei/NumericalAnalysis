@@ -7,6 +7,8 @@ one of functions mapping the set of real numbers is the algebraic polynomials, t
 """
 module Polynomial
 using SymPy
+using LinearAlgebra
+using Latexify
 
 @inline function product(x::Vector)
     res = 1
@@ -107,8 +109,58 @@ output simplify ans, set tab to output a table. set `backward=true` use the Newt
     end
 end
 
+"""
+    NCSpline( NCSpline(x::Vector, y::Vector; Latex::Bool=false, a::String="t")
+input ``x_1, x_2, x_3, ...x_n```,values ``f(x_1), f(x_2), ...,f(x_n)``, set Args `Latex = true`  to
+output information about the function.
+"""
+@inline function NCSpline(x::Vector, y::Vector; Latex::Bool=false, a::String="t")
+    a = symbols(a)
+    n, = size(x)
+    h, α = zeros(n), zeros(n-1)
 
+    for i in 1:n-1
+        h[i] = x[i+1] - x[i]
+    end
+    for i in 2:n-1
+        α[i] = 3/h[i] * (y[i+1] - y[i]) - 3/h[i-1] *(y[i] - y[i-1])
+    end
 
+    l = ones(n)
+    μ = zeros(n)
+    z = zeros(n)
+
+    for i in 2:n-1
+        l[i] = 2*(x[i+1] - x[i-1]) - h[i-1]*μ[i-1]
+        μ[i] = h[i]/l[i]
+        z[i] = (α[i] - h[i-1]*z[i-1])/l[i]
+    end
+
+    c, b, d = zeros(n), zeros(n), zeros(n)
+    for j in reverse(1:n-1)
+        c[j] = z[j] - μ[j]*c[j+1]
+        b[j] = (y[j+1] - y[j])/h[j] - h[j]*(c[j+1]+2*c[j])/3
+        d[j] = (c[j+1] - c[j])/(3*h[j])
+    end
+    A = [b[1:end-1] c[1:end-1] d[1:end-1]]
+    X = []
+    for i in 2:4
+        for j in 1:3
+            push!(X,(a - x[i-1])^(j))
+        end
+    end
+    res = diag(A * reshape(X, (n-1,n-1))) + y[1:end-1]
+
+    if Latex
+        for i in 1:n-1
+            print(res[i], ",","t ∈","[$(x[i]), $(x[i+1])]")
+            print("\n")
+
+        end
+    else
+        return res
+    end
+end
 
 
 

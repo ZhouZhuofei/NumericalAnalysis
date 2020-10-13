@@ -37,9 +37,10 @@ Now,just have some Methods here
   - Modified Newton's Method
   -  Müller’s Method
 - Interpolation and the Lagrange Polynomial
-  - nth Larange interpolating polynomial 
+  - nth Larange interpolating polynomial
   - Neville’s Iterated Interpolation
   - Newton’s Divided-Difference Formula
+  - Natural Cubic Spline
 
 more information in Docs.
 
