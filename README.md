@@ -41,6 +41,7 @@ Now,just have some Methods here
   - Neville’s Iterated Interpolation
   - Newton’s Divided-Difference Formula
   - Natural Cubic Spline
+  - Clamped Cubic Spline
 
 more information in Docs.
 

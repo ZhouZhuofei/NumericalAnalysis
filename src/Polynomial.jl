@@ -2,8 +2,12 @@
     Polynomial
 
 one of functions mapping the set of real numbers is the algebraic polynomials, the set of functions of the form:
-
 ``p_n(x) = a_n x^n + a_{n-1} x^{n-1} + ... +a_{1}x + a_0``
+- nth Larange interpolating polynomial
+- Neville’s Iterated Interpolation
+- Newton’s Divided-Difference Formula
+- Natural Cubic Spline
+- Clamped Cubic Spline
 """
 module Polynomial
 using SymPy
@@ -162,8 +166,64 @@ output information about the function.
     end
 end
 
+"""
+    CCSpline(x::Vector, y::Vector, endpoint::Vector; Latex::Bool=false, a::String="t")
 
+input ``x_1, x_2, x_3, ...x_n```,values ``f(x_1), f(x_2), ...,f(x_n)`` and ``f'(x_1), f'(x_n)``, set Args `Latex = true`  to
+output information about the function.
+"""
+@inline function CCSpline(x::Vector, y::Vector, endpoint::Vector; Latex::Bool=false, a::String="t")
+    n, = size(x)
+    h = ones(n)
+    α = ones(n)
+    a = symbols(a)
 
+    for i in 1:n-1
+        h[i] = x[i+1] - x[i]
+    end
+    α[1] = 3(y[2] - y[1])/h[1] - 3*endpoint[1]
+    α[n] = 3*endpoint[2] - 3*(y[n] - y[n-1])/h[n-1]
+    for i in 2:n-1
+        α[i] = 3/h[i] * (y[i+1] - y[i]) - 3/h[i-1] *(y[i] - y[i-1])
+    end
+
+    l = ones(n)
+    l[1] = 2*h[1]
+    μ = fill(0.5, n)
+    z = fill(α[1]/l[1], n)
+    for i in 2:n-1
+        l[i] = 2*(x[i+1] - x[i-1]) - h[i-1]*μ[i-1]
+        μ[i] = h[i]/l[i]
+        z[i] = (α[i] - h[i-1]*z[i-1])/l[i]
+    end
+    l[n] = h[n-1]*(2 - μ[n-1])
+    z[n] = (α[n] - h[n-1]*z[n-1])/l[n]
+    c = fill(z[n], n)
+    b, d = zeros(n), zeros(n)
+    for j in reverse(1:n-1)
+        c[j] = z[j] - μ[j]*c[j+1]
+        b[j] = (y[j+1] - y[j])/h[j] - h[j]*(c[j+1]+2*c[j])/3
+        d[j] = (c[j+1] - c[j])/(3*h[j])
+    end
+    A = [b[1:end-1] c[1:end-1] d[1:end-1]]
+    X = []
+    for i in 2:4
+        for j in 1:3
+            push!(X,(a - x[i-1])^(j))
+        end
+    end
+    res = diag(A * reshape(X, (n-1,n-1))) + y[1:end-1]
+    if Latex
+        for i in 1:n-1
+            print(res[i], ",","t ∈","[$(x[i]), $(x[i+1])]")
+            print("\n")
+
+        end
+    else
+        return res
+    end
+
+end
 
 
 end
