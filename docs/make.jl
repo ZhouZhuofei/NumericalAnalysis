@@ -11,6 +11,7 @@ makedocs(
             "Basic function" => "m/basic.md",
             "SEq in one variable" => "m/SEq1.md",
             "Interpolation and the Lagrange Polynomial" => "m/Polynomial.md",
+            "Numerical Differentiation and Integration" => "m/NCalculus.md",
         ],
     ],
 )
