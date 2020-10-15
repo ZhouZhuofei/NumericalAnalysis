@@ -1,5 +1,10 @@
 # Interpolation and the Lagrange Polynomial
 
+- nth Larange interpolating polynomial
+- Neville’s Iterated Interpolation
+- Newton’s Divided-Difference Formula
+- Natural Cubic Spline
+- Clamped Cubic Spline
 
 ##  nth Lagrange interpolating polynomial
 
@@ -81,8 +86,31 @@ y = [1, exp(1), exp(2), exp(3)]
 Polynomial.NCSpline(x, y, Latex=true)
 ```
 
+## Clamped Cubic Spline
+ add a endpoint $f'(0) = 1$, and $f'(3) = e^3$.
+
+```@example 3
+st1 = Polynomial.CCSpline(x, y, [1, exp(3)])
+function plot_curve1(x)
+    if 0 ≤ x < 1
+        return st1[1](x)
+    end
+    if 1 ≤ x < 2
+        return st1[2](x)
+    end
+    if 2 ≤ x ≤ 3
+        return st1[3](x)
+    end
+end
+scatter(x₁, plot_curve1.(x₁), label="predict", legend=:topleft)
+plot!(x₁, exp.(x₁), label="real")
+```
+
+****
+
 
 ## Method
+
 ```@autodocs
 Modules = [NumericalAnalysis.Polynomial]
 ```
