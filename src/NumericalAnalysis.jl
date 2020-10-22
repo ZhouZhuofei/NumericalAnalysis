@@ -20,4 +20,8 @@ include("Polynomial.jl")
 
 export Lagrange, Neville, NDDF, NCSpline, CCSpline
 
+include("NCalculus.jl")
+
+export ThreePoint, FivePoint, Trapezoidal, Simpson, Newton_cotes, Romberg, Gaussian_Quad
+
 end

@@ -36,6 +36,16 @@ Now, i just write some functions:
   - Newton’s Divided-Difference Formula
   - Natural Cubic Spline
   - Clamped Cubic Spline
+- Numerical Differentiation and integration
+  - Differentiation
+    - Three-Point and Five-Point formula
+  - Integration
+    - Trapezoidal Rule
+    - Simpson's Rule
+    - Newton_Cotes
+    - Romberg
+    - Gaussian_Quad
+
 ***
 ***
 

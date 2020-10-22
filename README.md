@@ -42,7 +42,15 @@ Now,just have some Methods here
   - Newton’s Divided-Difference Formula
   - Natural Cubic Spline
   - Clamped Cubic Spline
-
+- Numerical Differentiation and integration
+  - Differentiation
+    - Three-Point and Five-Point formula
+  - Integration
+     - Trapezoidal Rule
+     - Simpson's Rule
+     - Newton_cotes
+     - Romberg
+     - Gaussian_Quad
 more information in Docs.
 
 .....
