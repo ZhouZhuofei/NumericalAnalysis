@@ -5,6 +5,16 @@ Numerical Differentiation and Integration Module.
 """
 module NCalculus
 
+const GaussianRoots = [0.5773502692,-0.5773502692,
+        0.7745966692,0.0,-0.7745966692,
+        0.8611363116,0.3399810436,-0.3399810436,-0.8611363116,
+        0.9061798459,0.5384693101,0.0,-0.5384693101,-0.9061798459]
+const GaussianCoef = [1.0,1.0,
+    0.5555555556,0.8888888889,0.5555555556,
+    0.3478548451,0.6521451549,0.6521451549,0.3478548451,
+    0.2369268850,0.4786286705,0.5688888889,0.4786286705,0.2369268850]
+
+
 """
     ThreePoint(f::Function, x₀::Real, h::Real; method::String="Endpoint")
 
@@ -53,7 +63,7 @@ end
 
 
 """
-    Newton_Cotes(f::Function, a::Real, b::Real; n::Int=4, method::String="Midpoint")
+    Newton_Cotes(f::Function, a::Real, b::Real; n::Int=0, method::String="Midpoint")
 
 input a function `f`, and ``x in [a, b]``` calculate ``int_a^b f(x)dx``. args ``n∈[1,4]``
 """
@@ -117,21 +127,99 @@ Gaussian Quadrature must set `n<6`,default calculate `int f(x)dx` in `[-1,1]`. y
 """
 @inline function Gaussian_Quad(f::Function;n::Int=3,a::Real=-1, b::Real=1)
     #Gaussian Args
-    Root = [0.5773502692,-0.5773502692,
-        0.7745966692,0.0,-0.7745966692,
-        0.8611363116,0.3399810436,-0.3399810436,-0.8611363116,
-        0.9061798459,0.5384693101,0.0,-0.5384693101,-0.9061798459]
-    Coef = [1.0,1.0,
-        0.5555555556,0.8888888889,0.5555555556,
-        0.3478548451,0.6521451549,0.6521451549,0.3478548451,
-        0.2369268850,0.4786286705,0.5688888889,0.4786286705,0.2369268850]
+    #Root = [0.5773502692,-0.5773502692,
+    #    0.7745966692,0.0,-0.7745966692,
+    #    0.8611363116,0.3399810436,-0.3399810436,-0.8611363116,
+    #    0.9061798459,0.5384693101,0.0,-0.5384693101,-0.9061798459]
+    #Coef = [1.0,1.0,
+    #    0.5555555556,0.8888888889,0.5555555556,
+    #    0.3478548451,0.6521451549,0.6521451549,0.3478548451,
+    #    0.2369268850,0.4786286705,0.5688888889,0.4786286705,0.2369268850]
 
     if a == -1 && b == 1
-        return Coef[sum(1:n-1):sum(1:n-1)+n-1]' * f.(Root[sum(1:n-1):sum(1:n-1)+n-1])
+        return GaussianCoef[sum(1:n-1):sum(1:n-1)+n-1]' * f.(GaussianRoots[sum(1:n-1):sum(1:n-1)+n-1])
 
     else
-        return Coef[sum(1:n-1):sum(1:n-1)+n-1]' * (b-a)/2 * f.((b-a)/2 .* Root[sum(1:n-1):sum(1:n-1)+n-1] .+ (b+a)/2)
+        return GaussianCoef[sum(1:n-1):sum(1:n-1)+n-1]' * (b-a)/2 * f.((b-a)/2 .* GaussianRoots[sum(1:n-1):sum(1:n-1)+n-1] .+ (b+a)/2)
     end
+end
+
+"""
+    MutipleIntegralSimple(f::Function, interval_x::Tuple, interval_y::Tuple)
+
+It will apply the **Composite Trapezoidal rule** to approximate the integral.
+"""
+@inline function MutipleIntegralSimple(f::Function, interval_x::Tuple, interval_y::Tuple)
+    a, b = interval_x
+    c, d = interval_y
+
+    return (b-a)*(d-c)/16 * (f(a,c) + f(a,d) +f(b,c) + f(b,d)
+    + 2*(f((a+b)/2,c) + f((a+b)/2, d) + f(a, (c+d)/2) + f(b, (c+d)/2))
+    + 4*f((a+b)/2, (c+d)/2))
+end
+
+
+"""
+    SimpsonDoubleIntegral(f::Function, interval_x::Tuple, y_up::Function, y_down::Function; n::Int =6, m::Int=6)
+
+``f  = f(x, y), x ∈ interval_x, y = yup(x) - ydown(x)``, Args m and n is Separation distance.
+"""
+@inline function SimpsonDoubleIntegral(f::Function, interval_x::Tuple, y_up::Function, y_down::Function; n::Int =6, m::Int=6)
+    a, b = interval_x
+    h = (b - a) / n
+    J₁, J₂, J₃ = zeros(3)
+    for i  = 0:n
+        x = a + i * h
+        HX = (y_up(x) - y_down(x)) / m
+        K₁ = f(x, y_down(x)) + f(x, y_up(x))
+        K₂, K₃ = 0, 0
+        for j = 1:m-1
+            y = y_down(x) + j*HX
+            Q = f(x, y)
+            if iseven(j)
+                K₂+= Q
+            else
+                K₃+= Q
+            end
+        end
+        L = (K₁ + 2*K₂ + 4*K₃)*HX/3
+        if i == 0 || i == n
+            J₁ = J₁ + L
+        elseif iseven(i)
+            J₂+= L
+        else
+            J₃+= L
+        end
+    end
+    return h*(J₁+2J₂+4J₃)/3
+end
+
+"""
+     GaussianDoubleIntegral(f::Function, interval_x::Tuple, y_up::Function, y_down::Function, m::Int=5, n::Int=5)
+
+``f  = f(x, y), x ∈ interval_x, y = yup(x) - ydown(x)``, Args m and n is Separation distance.
+"""
+@inline function GaussianDoubleIntegral(f::Function, interval_x::Tuple, y_up::Function, y_down::Function; m::Int=5, n::Int=5)
+    m, n = min(5, m), min(5, n)
+    a, b = interval_x
+    h₁ = (b - a) / 2
+    h₂ = (b + a) / 2
+    J = 0
+    for i in 1:m
+        JX = 0
+        x = h₁ * GaussianRoots[sum(1:m-1)+i-1] + h₂
+        d₁ = y_up(x)
+        c₁ = y_down(x)
+        k₁ = (d₁ - c₁)/2
+        k₂ = (d₁ + c₁)/2
+        for j = 1:n
+            y = k₁ * GaussianRoots[sum(1:n-1)+j-1] + k₂
+            Q = f(x, y)
+            JX += GaussianCoef[sum(1:n-1)+j-1] * Q
+        end
+        J += GaussianCoef[sum(1:m-1)+i-1] * k₁ * JX
+    end
+    return h₁*J
 end
 
 

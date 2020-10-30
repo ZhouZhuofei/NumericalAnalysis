@@ -51,6 +51,9 @@ Now,just have some Methods here
      - Newton_cotes
      - Romberg
      - Gaussian_Quad
+  - Mutiple Integrals
+     - SimpsonDoubleIntegral
+     - GaussianDoubleIntegral
 more information in Docs.
 
 .....
