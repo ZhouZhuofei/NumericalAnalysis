@@ -19,7 +19,7 @@ I am a beginner of Julia and numerical analysis, there may be many problems, ðŸ‘
 here are some function:
 
 ```julia
-julia> using NumericalAnalysis
+julia > using NumericalAnalysis
 
 ```
 
