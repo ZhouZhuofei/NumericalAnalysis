@@ -122,7 +122,30 @@ NCalculus.Gaussian_Quad(x->x^2)
 
 ## Multiple Integrals
 
-wait
+In this section, Consider the double integral
+
+$\iint_R f(x,y)dA$
+
+where $R = {(x,y) | a \leq x \leq b, c \leq y \leq d}$. for some constants a, b, c, d, is a rectangular in the plane.
+
+we apply the **Composite Trapezoidal rule** to calculate:
+
+### Simpson Double Integral
+
+$\int_a^b\int_{ydown(x)}^{yup(x)}f(x, y)dydx$
+
+```@example 4
+f(x, y) = log(x + 2y)
+y_up(x) = 1.5
+y_down(x) = 1.0
+NCalculus.SimpsonDoubleIntegral(f, (1.4, 2.0), y_up, y_down)
+```
+
+### Gaussian Double Integral
+
+```@example 4
+NCalculus.GaussianDoubleIntegral(f, (1.4, 2.0), y_up, y_down)
+```
 
 
 

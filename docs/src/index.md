@@ -45,6 +45,9 @@ Now, i just write some functions:
     - Newton_Cotes
     - Romberg
     - Gaussian_Quad
+  - Mutiple Integrals
+    - SimpsonDoubleIntegral
+    - GaussianDoubleIntegral
 
 ***
 ***

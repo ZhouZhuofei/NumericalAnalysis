@@ -22,6 +22,6 @@ export Lagrange, Neville, NDDF, NCSpline, CCSpline
 
 include("NCalculus.jl")
 
-export ThreePoint, FivePoint, Trapezoidal, Simpson, Newton_cotes, Romberg, Gaussian_Quad
+export ThreePoint, FivePoint, Trapezoidal, Simpson, Newton_cotes, Romberg,Gaussian_Quad, SimpsonDoubleIntegral, MutipleIntegralSimple, GaussianDoubleIntegral
 
 end

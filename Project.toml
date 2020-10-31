@@ -1,7 +1,7 @@
 name = "NumericalAnalysis"
 uuid = "fb18ad0a-c577-441c-b4b0-b42a431f6d4f"
 authors = ["Zhuofei Zhou"]
-version = "0.2.0"
+version = "0.3.0"
 
 [deps]
 Conda = "8f4d0f93-b110-5947-807f-2305c1781a2d"
